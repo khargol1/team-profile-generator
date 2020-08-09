@@ -2,39 +2,32 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-
-const generateHTML = require('./utils/generateHTML');
-
 const inquirer = require('inquirer');
-//Variables
-
-let employees = [];
 
 
 
-
-function promptUser() {
+function promptUser(){
     return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'name',
-            message: 'What is your name?'
-        },
-        {
-            type: 'input',
-            name: 'id',
-            message: 'What is your employee id number?'
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email address?'
-        },
-        {
-            type: 'input',
-            name: 'officeNumber',
-            message: 'Where is the office you are located in?'
-        },
+    {
+        type: 'input',
+        name: 'name',
+        message: 'What is your name?'
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is your employee id number?'
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is your email address?'
+    },
+    {
+        type: 'input',
+        name: 'officeNumber',
+        message: 'Where is the office you are located in?'
+    },
     ])
 }
 
@@ -48,25 +41,22 @@ function gatherTeamData() {
             choices: ['Engineer', 'Intern', 'Done']
         }
     ).then(choice => {
-        if (choice.type == 'Engineer') {
+        if (choice.type == 'Engineer'){
             getEngineer().then(answers => {
                 let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
                 employees.push(engineer);
                 gatherTeamData();
             })
-        } else if (choice.type == 'Intern') {
+        } else if (choice.type == 'Intern'){
             getIntern().then(answers => {
                 let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
                 employees.push(intern);
-                gatherTeamData();
+                gatherTeamData();                
             })
-        } else {
-            //paste code here for parsing
-            let parser = new generateHTML(employees);
-            parser.render();
-            parser.writeToFile().catch(err=> console.err(err));
-            //console.log(employees);
-
+        } else{
+            console.log(employees);
+            console.log('done');
+            
         }
     })
 
@@ -121,52 +111,3 @@ function getIntern() {
         }
     ]);
 };
-
-//Execution Code
-
-console.log(`
-Hello! I will help you build an html page for your team.
-Lets begin by getting some information about you.
-`);
-promptUser()
-    .then(answers => {
-        let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-        employees.push(manager);
-        // console.log(employees);
-    })
-    .then(answers => {
-        gatherTeamData()
-
-    });
-
-
-//Testing Code
-// let testData = [
-//     {
-//       name: 'Riker',
-//       id: '1',
-//       email: 'jonathonfrakes@enterprise.ship',
-//       role: 'Manager',
-//       officeNumber: '10-forward'
-//     },
-//     {
-//       name: 'Geordi',
-//       id: '1701-D',
-//       email: 'lavarburton@enterprise.ship',
-//       role: 'Engineer',
-//       github: 'warp10'
-//     },
-//     {
-//       name: 'Wesley',
-//       id: '38143-C',
-//       email: 'wilwheaton@enterprise.ship',
-//       role: 'Intern',
-//       school: 'Starfleet Academy'
-//     }
-//   ];
-
-
-// let parser = new generateHTML(testData);
-// parser.render();
-// parser.writeToFile().catch(err=> console.err(err));
-
