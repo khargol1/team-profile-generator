@@ -2,10 +2,10 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-
 const generateHTML = require('./utils/generateHTML');
-
 const inquirer = require('inquirer');
+
+
 //Variables
 
 let employees = [];
@@ -65,7 +65,6 @@ function gatherTeamData() {
             let parser = new generateHTML(employees);
             parser.render();
             parser.writeToFile().catch(err=> console.err(err));
-            //console.log(employees);
 
         }
     })
@@ -140,33 +139,4 @@ promptUser()
     });
 
 
-//Testing Code
-// let testData = [
-//     {
-//       name: 'Riker',
-//       id: '1',
-//       email: 'jonathonfrakes@enterprise.ship',
-//       role: 'Manager',
-//       officeNumber: '10-forward'
-//     },
-//     {
-//       name: 'Geordi',
-//       id: '1701-D',
-//       email: 'lavarburton@enterprise.ship',
-//       role: 'Engineer',
-//       github: 'warp10'
-//     },
-//     {
-//       name: 'Wesley',
-//       id: '38143-C',
-//       email: 'wilwheaton@enterprise.ship',
-//       role: 'Intern',
-//       school: 'Starfleet Academy'
-//     }
-//   ];
-
-
-// let parser = new generateHTML(testData);
-// parser.render();
-// parser.writeToFile().catch(err=> console.err(err));
 

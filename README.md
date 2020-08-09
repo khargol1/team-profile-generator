@@ -13,6 +13,7 @@
 
   ## Installation
   use npm install (watch the video for more details)
+  [Video Link](https://drive.google.com/file/d/1mGWMRM0CiopIWpOFg8unM3xchMOs2RfR/view)
 
   ## Usage
   Initialize the program on the command line with 'node index' and follow the prompts. When you are done adding team members you can select done and the html page will be in the dist folder.
